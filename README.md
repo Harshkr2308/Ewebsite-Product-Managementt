@@ -17,7 +17,7 @@
 ### Install Dependencies (frontend & backend)
 
 ```
-cd frontend
+cd front-end
 npm install
 cd backend
 npm install
@@ -26,7 +26,8 @@ npm install
 ### Run
 
 ```
-# 
-npm run start (For frontend)
-nodemon (For backend)
+# in one terminal
+npm  start (For frontend)
+# in other terminal 
+npm start (For backend)
 
