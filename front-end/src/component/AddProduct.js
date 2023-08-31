@@ -12,6 +12,7 @@ const AddProduct = () => {
       setError(true);
       return false;
     }
+    
 
     const userId = JSON.parse(localStorage.getItem("user"))._id;
 
@@ -26,6 +27,8 @@ const AddProduct = () => {
       })
       .then((res) => {
         result = res.data;
+        alert("added succcesfully")
+        
       })
       .catch((err) => {
         console.log(err);

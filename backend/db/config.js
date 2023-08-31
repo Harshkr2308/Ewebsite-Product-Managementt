@@ -1,11 +1,14 @@
-const mongoose=require('mongoose');
-mongoose.connect("mongodb://127.0.0.1:27017/e-commerce", {
+const mongoose = require("mongoose");
+let uri =
+  "mongodb+srv://harshkr5247:sgDapfEl3fYHMPMV@cluster0.1zulvry.mongodb.net/e-commerce?retryWrites=true&w=majority";
+mongoose
+  .connect(uri, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
   })
   .then(() => {
     console.log("database connected");
   })
-  .catch(err => {
+  .catch((err) => {
     console.log("Could not connect", err);
   });
