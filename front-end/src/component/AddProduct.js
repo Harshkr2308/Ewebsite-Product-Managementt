@@ -1,13 +1,13 @@
-import React from "react";
+import React,{useState} from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const AddProduct = () => {
-  const [name, setName] = React.useState("");
-  const [price, setPrice] = React.useState("");
-  const [category, setCategory] = React.useState("");
-  const [company, setCompany] = React.useState("");
-  const [error, setError] = React.useState(false);
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState("");
+  const [category, setCategory] = useState("");
+  const [company, setCompany] = useState("");
+  const [error, setError] = useState(false);
   const navigate = useNavigate();
 
   const addProduct = async () => {
@@ -17,35 +17,20 @@ const AddProduct = () => {
     }
 
     const userId = JSON.parse(localStorage.getItem("user"))._id;
-
+    const items = { name, price, category, company, userId };
     let result;
     await axios
-      .post("http://localhost:5000/add-product", {
-        name,
-        price,
-        category,
-        company,
-        userId,
-      })
+      .post("http://localhost:5000/add-product", items)
       .then((res) => {
         result = res.data;
         alert("added succcesfully");
-        
       })
       .catch((err) => {
         console.log(err);
       });
 
-    // let result = await fetch("http://localhost:5000/add-product", {
-    //   method: "post",
-    //   body: JSON.stringify({ name, price, category, company, userId }),
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // });
-    // result = await result.json();
     console.warn(result);
-    navigate('/');
+    navigate("/");
   };
   return (
     <div className="product">

@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import { useNavigate } from "react-router-dom";
 const Login = () => {
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
   useEffect(() => {
     const auth = localStorage.getItem("user");
@@ -26,7 +26,7 @@ const Login = () => {
       localStorage.setItem("token", JSON.stringify(result.auth));
       navigate("/");
     } else {
-      alert("Please enter correct details");
+      alert(result.result);
     }
   };
   return (

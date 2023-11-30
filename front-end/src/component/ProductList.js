@@ -62,9 +62,9 @@ const ProductList = () => {
             </li>
           </ul>
         ))
-      ) : 
+      ) : (
         <h1>No Result Found</h1>
-      }
+      )}
     </div>
   );
 };
