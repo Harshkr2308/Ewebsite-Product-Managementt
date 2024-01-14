@@ -19,7 +19,7 @@ const Signup = () => {
     const body = { name, email, password };
     let result;
     await axios
-      .post("http://localhost:5000/register", body)
+      .post("https://ecommerce-dashboard-06ge.onrender.com/register", body)
       .then((res) => {
         result = res.data;
       })

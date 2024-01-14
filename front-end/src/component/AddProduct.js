@@ -20,7 +20,7 @@ const AddProduct = () => {
     const items = { name, price, category, company, userId };
     let result;
     await axios
-      .post("http://localhost:5000/add-product", items)
+      .post("https://ecommerce-dashboard-06ge.onrender.com/add-product", items)
       .then((res) => {
         result = res.data;
         alert("added succcesfully");
