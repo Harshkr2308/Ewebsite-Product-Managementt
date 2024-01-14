@@ -4,12 +4,12 @@ require("./db/config");
 const User = require("./db/User");
 const Product = require("./db/Product");
 const app = express();
-const bcrypt = require('bcrypt');
+const bcrypt = require("bcrypt");
 const Jwt = require("jsonwebtoken");
 const jwtKey = "e-comm";
 app.use(express.json());
 app.use(cors());
- // Registration
+// Registration
 app.post("/register", async (req, resp) => {
   try {
     // Check if the user already exists
@@ -24,11 +24,10 @@ app.post("/register", async (req, resp) => {
     let user = new User({
       email: req.body.email,
       password: hashedPassword,
-      name:req.body.name,
+      name: req.body.name,
     });
     let result = await user.save();
     result = result.toObject();
-    
 
     Jwt.sign({ result }, jwtKey, { expiresIn: "2h" }, (err, token) => {
       if (err) {
@@ -43,7 +42,6 @@ app.post("/register", async (req, resp) => {
   }
 });
 
-
 // login
 app.post("/login", async (req, resp) => {
   try {
@@ -51,20 +49,28 @@ app.post("/login", async (req, resp) => {
       const user = await User.findOne({ email: req.body.email });
       if (user) {
         // Compare the provided password with the stored hashed password
-        const passwordMatch = await bcrypt.compare(req.body.password, user.password);
-        
+        const passwordMatch = await bcrypt.compare(
+          req.body.password,
+          user.password
+        );
+
         if (passwordMatch) {
           const userWithoutPassword = { ...user.toObject() };
           delete userWithoutPassword.password;
 
-          Jwt.sign({ user: userWithoutPassword }, jwtKey, { expiresIn: "2h" }, (err, token) => {
-            if (err) {
-              resp.status(500).send({
-                result: "Something went wrong. Please try again later.",
-              });
+          Jwt.sign(
+            { user: userWithoutPassword },
+            jwtKey,
+            { expiresIn: "2h" },
+            (err, token) => {
+              if (err) {
+                resp.status(500).send({
+                  result: "Something went wrong. Please try again later.",
+                });
+              }
+              resp.send({ user: userWithoutPassword, auth: token });
             }
-            resp.send({ user: userWithoutPassword, auth: token });
-          });
+          );
         } else {
           resp.status(401).send({ result: "Invalid password" });
         }
@@ -89,6 +95,8 @@ app.post("/add-product", async (req, resp) => {
 // product list
 app.get("/products", async (req, resp) => {
   let products = await Product.find();
+  // console.log(products)
+
   if (products.length > 0) {
     resp.send(products);
   } else {

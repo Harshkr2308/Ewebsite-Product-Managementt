@@ -33,6 +33,7 @@ const UpdateProduct = () => {
     });
     result = await result.json();
     console.warn(result);
+    alert("Succesfully updated");
     navigate("/");
   };
   return (
