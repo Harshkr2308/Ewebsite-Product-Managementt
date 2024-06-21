@@ -16,7 +16,7 @@
   width: 100%;
   background-color: skyblue;
   bottom: 0;
-  position: absolute;
+  position: fixed;
   text-align: center;
 }
 .register,
